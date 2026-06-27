@@ -1,0 +1,1875 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>مَهَارَةُ الاسْتِمَاعِ - Kit Mendengar Bahasa Arab</title>
+
+  <style>
+    :root{
+      --bg:#fff8ef;
+      --panel:#ffffff;
+      --ink:#243044;
+      --muted:#6b7280;
+      --brown:#6f4e37;
+      --brown2:#4b3325;
+      --cream:#fff3d7;
+      --orange:#fb923c;
+      --yellow:#facc15;
+      --rose:#fb7185;
+      --blue:#38bdf8;
+      --green:#22c55e;
+      --purple:#8b5cf6;
+      --red:#ef4444;
+      --shadow:0 18px 45px rgba(31,42,55,.12);
+      --arab:'Traditional Arabic','Amiri','Scheherazade New',serif;
+      --rumi:'Segoe UI',Arial,sans-serif;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+
+    body{
+      min-height:100vh;
+      font-family:var(--rumi);
+      background:
+        radial-gradient(circle at 8% 8%,rgba(250,204,21,.28),transparent 24%),
+        radial-gradient(circle at 95% 18%,rgba(56,189,248,.22),transparent 28%),
+        radial-gradient(circle at 35% 100%,rgba(251,113,133,.18),transparent 33%),
+        linear-gradient(180deg,#fff8ef,#fdf2f8);
+      color:var(--ink);
+      user-select:none;
+      overflow-x:hidden;
+    }
+
+    body.high-contrast{
+      --bg:#111827;
+      --panel:#1f2937;
+      --ink:#f9fafb;
+      --muted:#d1d5db;
+      --cream:#111827;
+      background:#111827;
+      color:#f9fafb;
+    }
+
+    body.hide-malay .malay{display:none!important}
+    body.big-font{font-size:18px}
+
+    .arabic{
+      font-family:var(--arab);
+      direction:rtl;
+      font-size:2.35rem;
+      line-height:1.25;
+      font-weight:900;
+      color:#5b341f;
+    }
+
+    .arabic.logo-text{
+      font-size:1.65rem;
+      color:#fff;
+      line-height:1.15;
+    }
+
+    body.high-contrast .arabic{color:#fde68a}
+    body.big-font .arabic{font-size:2.85rem}
+
+    .malay,.muted{color:var(--muted)}
+
+    .app{
+      display:grid;
+      grid-template-columns:280px 1fr;
+      min-height:100vh;
+    }
+
+    .sidebar{
+      position:sticky;
+      top:0;
+      height:100vh;
+      padding:22px;
+      background:linear-gradient(180deg,#7c4a2d,#4b3325);
+      color:#fff;
+      overflow-y:auto;
+    }
+
+    .brand{
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:28px;
+      padding:18px;
+      box-shadow:0 20px 40px rgba(0,0,0,.18);
+      margin-bottom:18px;
+    }
+
+    .brand-logo{
+      width:72px;
+      height:72px;
+      border-radius:24px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(145deg,#fde68a,#fb923c);
+      color:#4a2f20;
+      font-size:2.05rem;
+      box-shadow:0 8px 0 #b45309;
+      margin-bottom:12px;
+    }
+
+    .brand h1{
+      font-family:var(--arab);
+      direction:rtl;
+      font-size:2rem;
+      line-height:1.1;
+      margin-bottom:8px;
+    }
+
+    .brand p{
+      opacity:.86;
+      margin-top:6px;
+      font-size:.93rem;
+    }
+
+    .side-group{
+      display:grid;
+      gap:9px;
+      margin-top:16px;
+    }
+
+    .side-btn{
+      border:0;
+      width:100%;
+      text-align:left;
+      padding:13px 14px;
+      border-radius:18px;
+      cursor:pointer;
+      background:rgba(255,255,255,.11);
+      color:#fff;
+      font-weight:900;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      transition:.18s;
+    }
+
+    .side-btn:hover,.side-btn.active{
+      background:#fff;
+      color:#6f4e37;
+      transform:translateX(4px);
+    }
+
+    .side-card{
+      margin-top:18px;
+      background:rgba(255,255,255,.11);
+      border:1px solid rgba(255,255,255,.15);
+      border-radius:22px;
+      padding:16px;
+    }
+
+    .music-mini{
+      display:grid;
+      gap:10px;
+      margin-top:10px;
+    }
+
+    .eq{
+      display:flex;
+      gap:4px;
+      align-items:end;
+      height:30px;
+    }
+
+    .eq i{
+      display:block;
+      width:8px;
+      height:8px;
+      background:#fde68a;
+      border-radius:999px;
+    }
+
+    .eq.playing i:nth-child(1){animation:eq .8s infinite}
+    .eq.playing i:nth-child(2){animation:eq .6s infinite}
+    .eq.playing i:nth-child(3){animation:eq .75s infinite}
+    .eq.playing i:nth-child(4){animation:eq .9s infinite}
+    @keyframes eq{50%{height:28px}}
+
+    .main{
+      padding:24px;
+      max-width:1280px;
+      width:100%;
+      margin:0 auto;
+    }
+
+    .topline{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      flex-wrap:wrap;
+      margin-bottom:22px;
+    }
+
+    .top-title h2{
+      font-size:clamp(1.7rem,3vw,2.8rem);
+      color:#5b3b2a;
+      line-height:1.05;
+    }
+
+    body.high-contrast .top-title h2{color:#fde68a}
+    .top-title p{margin-top:6px}
+
+    .quick-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      border:0;
+      border-radius:16px;
+      padding:12px 16px;
+      font-weight:900;
+      cursor:pointer;
+      background:#fff;
+      color:#5b3b2a;
+      box-shadow:0 8px 0 rgba(111,78,55,.20),0 18px 25px rgba(31,42,55,.08);
+      transition:.15s;
+    }
+
+    .btn:active{transform:translateY(6px);box-shadow:none}
+    .btn.primary{background:linear-gradient(145deg,#fb923c,#facc15);color:#4a2f20}
+    .btn.green{background:linear-gradient(145deg,#22c55e,#16a34a);color:#fff}
+    .btn.blue{background:linear-gradient(145deg,#38bdf8,#0ea5e9);color:#fff}
+    .btn.purple{background:linear-gradient(145deg,#a78bfa,#7c3aed);color:#fff}
+    .btn.red{background:linear-gradient(145deg,#fb7185,#ef4444);color:#fff}
+    .btn.small{padding:8px 11px;border-radius:12px}
+
+    .section{display:none;animation:fadeUp .35s ease}
+    .section.active{display:block}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+    .panel{
+      background:rgba(255,255,255,.82);
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,.86);
+      border-radius:32px;
+      padding:24px;
+      box-shadow:var(--shadow);
+    }
+
+    body.high-contrast .panel{
+      background:#1f2937;
+      border-color:#374151;
+    }
+
+    .welcome-grid{
+      display:grid;
+      grid-template-columns:1.03fr .97fr;
+      gap:22px;
+      align-items:stretch;
+    }
+
+    .hero-card{
+      min-height:450px;
+      background:
+        linear-gradient(145deg,rgba(255,247,232,.96),rgba(255,255,255,.90));
+      display:grid;
+      align-content:center;
+    }
+
+    .hero-content{
+      max-width:760px;
+    }
+
+    .hero-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      background:#fff;
+      color:#6f4e37;
+      border-radius:999px;
+      padding:8px 13px;
+      font-weight:900;
+      margin-bottom:18px;
+      box-shadow:0 10px 18px rgba(31,42,55,.08);
+    }
+
+    .hero-title-arabic{
+      font-family:var(--arab);
+      direction:rtl;
+      font-size:clamp(3rem,6vw,6rem);
+      line-height:1;
+      color:#5b341f;
+      margin-bottom:12px;
+    }
+
+    .hero-title{
+      font-size:clamp(2rem,3.6vw,4rem);
+      line-height:1.05;
+      color:#5b3b2a;
+    }
+
+    .hero-title span{color:#fb923c}
+
+    .hero-text{
+      max-width:680px;
+      margin:18px 0;
+      font-size:1.05rem;
+    }
+
+    .arabic-title{
+      margin-top:18px;
+      padding:16px 20px;
+      background:#fff;
+      border-radius:24px;
+      display:inline-block;
+      box-shadow:0 12px 24px rgba(31,42,55,.08);
+    }
+
+    .scene-card{
+      display:grid;
+      gap:16px;
+      align-content:stretch;
+      background:linear-gradient(180deg,#e0f2fe,#fff7ed);
+      overflow:hidden;
+    }
+
+    .scene-top{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    .scene-tile{
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(255,255,255,.9);
+      border-radius:28px;
+      padding:20px;
+      text-align:center;
+      box-shadow:0 12px 24px rgba(31,42,55,.08);
+      min-height:160px;
+      display:grid;
+      place-items:center;
+    }
+
+    .scene-emoji{
+      font-size:4.6rem;
+      animation:softFloat 3s ease-in-out infinite;
+    }
+
+    .scene-tile:nth-child(2) .scene-emoji{animation-delay:.4s}
+    .scene-tile:nth-child(3) .scene-emoji{animation-delay:.8s}
+    .scene-tile:nth-child(4) .scene-emoji{animation-delay:1.2s}
+    @keyframes softFloat{50%{transform:translateY(-12px)}}
+
+    .main-scene{
+      background:#fff;
+      border-radius:30px;
+      padding:22px;
+      text-align:center;
+      box-shadow:0 16px 28px rgba(31,42,55,.08);
+    }
+
+    .main-scene .big{
+      font-size:5.8rem;
+      line-height:1;
+      margin-bottom:8px;
+    }
+
+    .feature-strip{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:14px;
+      margin-top:22px;
+    }
+
+    .feature-card{
+      background:#fff;
+      border-radius:26px;
+      padding:20px;
+      box-shadow:0 15px 28px rgba(31,42,55,.08);
+      border-top:7px solid var(--orange);
+      text-align:center;
+    }
+
+    .feature-card:nth-child(2){border-color:var(--blue)}
+    .feature-card:nth-child(3){border-color:var(--green)}
+    .feature-card .icon{font-size:2.8rem;margin-bottom:8px}
+
+    .listen-layout{
+      display:grid;
+      grid-template-columns:330px 1fr;
+      gap:22px;
+      align-items:start;
+    }
+
+    .lesson-list{
+      display:grid;
+      gap:10px;
+      max-height:660px;
+      overflow:auto;
+      padding-right:4px;
+    }
+
+    .lesson-tab{
+      border:0;
+      border-radius:22px;
+      padding:14px;
+      text-align:left;
+      cursor:pointer;
+      background:#fff;
+      box-shadow:0 10px 18px rgba(31,42,55,.06);
+      border:2px solid transparent;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      color:var(--ink);
+    }
+
+    .lesson-tab.active{
+      border-color:#fb923c;
+      background:#fff7e8;
+    }
+
+    .lesson-tab .emoji{font-size:2.15rem}
+    .lesson-tab b{display:block}
+    .lesson-tab small{color:var(--muted)}
+
+    .listen-stage{
+      background:#fff;
+      border-radius:34px;
+      padding:26px;
+      box-shadow:var(--shadow);
+      min-height:660px;
+    }
+
+    body.high-contrast .listen-stage{background:#1f2937}
+
+    .visual-main{
+      font-size:6.5rem;
+      min-height:130px;
+      display:grid;
+      place-items:center;
+      background:
+        radial-gradient(circle,rgba(250,204,21,.24),transparent 54%),
+        linear-gradient(145deg,#fff7e8,#fff);
+      border-radius:30px;
+      margin:14px 0;
+    }
+
+    .sentence-box{
+      border:2px dashed #f3d58d;
+      background:#fffaf0;
+      border-radius:28px;
+      padding:24px;
+      text-align:center;
+      min-height:150px;
+      display:grid;
+      place-items:center;
+    }
+
+    body.high-contrast .sentence-box{
+      background:#111827;
+      border-color:#6b7280;
+    }
+
+    .word{
+      display:inline-block;
+      padding:8px 10px;
+      margin:3px;
+      border-radius:14px;
+      cursor:pointer;
+      transition:.2s;
+    }
+
+    .word:hover{background:#fef3c7;transform:translateY(-2px)}
+    .word.active{
+      background:#facc15;
+      color:#4a2f20;
+      box-shadow:0 10px 20px rgba(245,158,11,.22);
+      transform:scale(1.08);
+    }
+
+    .word.correct-tap{background:#bbf7d0;color:#14532d}
+    .word.wrong-tap{background:#fecdd3;color:#881337}
+
+    .progress-line{
+      height:14px;
+      background:#f3e4cc;
+      border-radius:999px;
+      overflow:hidden;
+      margin:15px 0;
+    }
+
+    .progress-fill{
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg,#fb923c,#facc15,#22c55e);
+      border-radius:999px;
+      transition:.3s;
+    }
+
+    .controls{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+      margin:16px 0;
+    }
+
+    .question-card{
+      margin-top:18px;
+      background:#f8fafc;
+      border-radius:28px;
+      padding:20px;
+      border:1px solid #e5e7eb;
+    }
+
+    body.high-contrast .question-card{background:#111827;border-color:#374151}
+
+    .choices{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:12px;
+      margin-top:15px;
+    }
+
+    .choice{
+      border:2px solid #e5e7eb;
+      background:#fff;
+      color:var(--ink);
+      border-radius:18px;
+      padding:15px;
+      font-weight:900;
+      cursor:pointer;
+      transition:.18s;
+    }
+
+    .choice:hover{transform:scale(1.02);background:#fff7e8}
+    .choice.correct{background:#dcfce7;border-color:#22c55e;color:#14532d}
+    .choice.wrong{background:#ffe4e6;border-color:#fb7185;color:#881337}
+
+    .feedback{
+      display:none;
+      padding:14px;
+      border-radius:18px;
+      margin-top:14px;
+      font-weight:900;
+      text-align:center;
+    }
+
+    .feedback.show{display:block;animation:pop .3s}
+    .feedback.ok{background:#dcfce7;color:#14532d}
+    .feedback.no{background:#ffe4e6;color:#881337}
+    @keyframes pop{from{transform:scale(.94);opacity:.4}to{transform:scale(1);opacity:1}}
+
+    .help-strip{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:10px;
+      margin-top:16px;
+    }
+
+    .help-chip{
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:18px;
+      padding:12px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+    }
+
+
+    .voice-picture-layout{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:22px;
+      align-items:start;
+      margin-top:18px;
+    }
+
+    .voice-picture-box{
+      background:#fff;
+      border-radius:32px;
+      padding:22px;
+      box-shadow:var(--shadow);
+      border-top:8px solid #fb923c;
+    }
+
+    .voice-picture-box:nth-child(2){
+      border-top-color:#38bdf8;
+    }
+
+    body.high-contrast .voice-picture-box{
+      background:#1f2937;
+      border-color:#374151;
+    }
+
+    .voice-picture-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+      gap:14px;
+      margin-top:16px;
+    }
+
+    .voice-img-card{
+      min-height:135px;
+      border:0;
+      border-radius:26px;
+      background:linear-gradient(145deg,#fff7ed,#ffffff);
+      box-shadow:0 12px 24px rgba(31,42,55,.10);
+      cursor:pointer;
+      display:grid;
+      place-items:center;
+      transition:.18s;
+      border:2px solid transparent;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .voice-img-card:hover{
+      transform:translateY(-6px) scale(1.02);
+      border-color:#facc15;
+      background:linear-gradient(145deg,#fff7d6,#ffffff);
+    }
+
+    .voice-img-card:active{
+      transform:scale(.97);
+    }
+
+    .voice-img-card .pic{
+      font-size:4.4rem;
+      filter:drop-shadow(0 12px 14px rgba(31,42,55,.16));
+      animation:gentlePic 2.8s ease-in-out infinite;
+    }
+
+    .voice-img-card.sentence-card{
+      min-height:185px;
+    }
+
+    .voice-img-card.sentence-card .pic{
+      font-size:5.2rem;
+    }
+
+    @keyframes gentlePic{
+      50%{transform:translateY(-6px)}
+    }
+
+    .voice-note{
+      margin-top:16px;
+      padding:14px;
+      border-radius:18px;
+      background:#fff7e8;
+      color:#6f4e37;
+      font-weight:900;
+      text-align:center;
+      border:1px solid #f7d99b;
+    }
+
+    body.high-contrast .voice-note{
+      background:#111827;
+      color:#fde68a;
+      border-color:#374151;
+    }
+
+    @media(max-width:900px){
+      .voice-picture-layout{
+        grid-template-columns:1fr;
+      }
+    }
+
+
+    .voice-img-card.sentence-card{
+      min-height:230px;
+      padding:16px;
+      background:
+        radial-gradient(circle at 20% 10%,rgba(250,204,21,.22),transparent 30%),
+        radial-gradient(circle at 90% 20%,rgba(56,189,248,.18),transparent 32%),
+        linear-gradient(145deg,#fff7ed,#ffffff);
+    }
+
+    .sentence-scene{
+      width:100%;
+      min-height:190px;
+      border-radius:24px;
+      display:grid;
+      place-items:center;
+      padding:12px;
+      background:linear-gradient(180deg,#e0f2fe,#fff7ed);
+      border:1px solid rgba(255,255,255,.85);
+      box-shadow:inset 0 0 30px rgba(255,255,255,.6);
+    }
+
+    .scene-line{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      line-height:1;
+    }
+
+    .scene-big{
+      font-size:4.2rem;
+      filter:drop-shadow(0 12px 14px rgba(31,42,55,.16));
+    }
+
+    .scene-mid{
+      font-size:3rem;
+      filter:drop-shadow(0 10px 12px rgba(31,42,55,.12));
+    }
+
+    .scene-small{
+      font-size:2.2rem;
+      filter:drop-shadow(0 8px 10px rgba(31,42,55,.10));
+    }
+
+    .scene-table{
+      width:80%;
+      height:18px;
+      border-radius:999px;
+      background:#b77948;
+      box-shadow:0 8px 0 #7c4a2d;
+      margin-top:8px;
+    }
+
+    .sentence-scene.party{
+      background:linear-gradient(180deg,#fdf2f8,#fff7ed);
+    }
+
+    .sentence-scene.photo{
+      background:linear-gradient(180deg,#e0f2fe,#f8fafc);
+    }
+
+    .game-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:18px;
+    }
+
+    .game-tile{
+      min-height:170px;
+      background:#fff;
+      border-radius:30px;
+      padding:22px;
+      box-shadow:var(--shadow);
+      cursor:pointer;
+      border-bottom:8px solid #fb923c;
+      transition:.18s;
+    }
+
+    .game-tile:hover{transform:translateY(-7px)}
+    .game-tile:nth-child(2){border-color:#38bdf8}
+    .game-tile:nth-child(3){border-color:#8b5cf6}
+    .game-tile:nth-child(4){border-color:#22c55e}
+    .game-tile:nth-child(5){border-color:#fb7185}
+    .game-tile:nth-child(6){border-color:#facc15}
+
+    .game-tile .icon{font-size:3rem;margin-bottom:10px}
+
+    .game-area{display:none;margin-top:22px}
+    .game-area.active{display:block}
+
+    .game-board{
+      background:linear-gradient(145deg,#4b3325,#7c4a2d);
+      color:#fff;
+      border-radius:34px;
+      padding:24px;
+      box-shadow:var(--shadow);
+    }
+
+    .game-question{
+      background:#fff;
+      color:var(--ink);
+      border-radius:28px;
+      padding:22px;
+      text-align:center;
+      margin:14px 0;
+    }
+
+    .game-board .choice{color:var(--ink)}
+
+    .status{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      background:rgba(255,255,255,.13);
+      padding:12px 16px;
+      border-radius:18px;
+      font-weight:900;
+    }
+
+    .memory-grid{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+      max-width:760px;
+      margin:0 auto;
+    }
+
+    .mem-card{
+      min-height:110px;
+      border:0;
+      border-radius:22px;
+      background:linear-gradient(145deg,#fb923c,#facc15);
+      color:#4a2f20;
+      cursor:pointer;
+      font-weight:900;
+      font-size:1rem;
+      box-shadow:0 7px 0 #b45309;
+      transition:.2s;
+      padding:12px;
+    }
+
+    .mem-card.open,.mem-card.matched{
+      background:#fff;
+      color:#4a2f20;
+      box-shadow:0 7px 0 #ead7b7;
+    }
+
+    .mem-card.matched{background:#dcfce7;color:#14532d}
+
+    .sequence-list{display:grid;gap:10px;max-width:850px;margin:0 auto}
+    .seq-item{
+      background:#fff;
+      color:var(--ink);
+      border-radius:18px;
+      padding:14px;
+      font-weight:900;
+      cursor:pointer;
+      border:3px solid transparent;
+    }
+    .seq-item.selected{border-color:#facc15;background:#fff8d8}
+    .seq-item.done{background:#dcfce7;color:#14532d}
+
+    .toast{
+      position:fixed;
+      top:18px;
+      right:18px;
+      z-index:5000;
+      background:#4b3325;
+      color:#fff;
+      padding:13px 16px;
+      border-radius:16px;
+      box-shadow:var(--shadow);
+      transform:translateX(120%);
+      transition:.35s;
+      font-weight:900;
+    }
+
+    .toast.show{transform:translateX(0)}
+
+    .popup,.overlay{display:none}
+    .overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.55);
+      backdrop-filter:blur(5px);
+      z-index:5000;
+    }
+
+    .popup{
+      position:fixed;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      width:min(92vw,480px);
+      background:#fff;
+      color:#1f2a37;
+      border-radius:30px;
+      padding:28px;
+      z-index:5001;
+      text-align:center;
+      box-shadow:0 40px 80px rgba(0,0,0,.28);
+    }
+
+    .footer{
+      margin-top:28px;
+      padding:22px;
+      text-align:center;
+      color:var(--muted);
+    }
+
+    @media(max-width:1050px){
+      .app{grid-template-columns:1fr}
+      .sidebar{
+        position:relative;
+        height:auto;
+        border-radius:0 0 34px 34px;
+      }
+      .side-group{
+        grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      }
+      .listen-layout,.welcome-grid{
+        grid-template-columns:1fr;
+      }
+      .feature-strip{grid-template-columns:1fr}
+    }
+
+    @media(max-width:650px){
+      .main{padding:14px}
+      .scene-top{grid-template-columns:1fr 1fr}
+      .memory-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .hero-title{font-size:2.4rem}
+      .main-scene .big{font-size:4.5rem}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="toast" id="toast">Sedia</div>
+  <div class="overlay" id="overlay"></div>
+  <div class="popup" id="popup">
+    <h2 id="popTitle">Tahniah!</h2>
+    <p id="popMsg"></p>
+    <div id="popExtra" style="margin-top:12px"></div>
+    <button class="btn primary" onclick="closePopup()" style="margin-top:18px">Tutup</button>
+  </div>
+
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo">🎧</div>
+        <h1>مَهَارَةُ الاسْتِمَاعِ</h1>
+        <p>Kit Mendengar Bahasa Arab Tema Hari Jadi</p>
+      </div>
+
+      <div class="side-group" id="sideNav"></div>
+
+      <div class="side-card">
+        <b>🎵 Muzik Latar Soft</b>
+        <div class="music-mini">
+          <button class="btn small primary" onclick="toggleMusic()" id="musicBtn">Hidupkan Muzik</button>
+          <input type="range" min="0.005" max="0.07" step="0.005" value="0.02" id="musicVol" oninput="setMusicVolume(this.value)">
+          <div class="eq" id="eq"><i></i><i></i><i></i><i></i></div>
+        </div>
+      </div>
+
+      <div class="side-card">
+        <b>Tetapan</b>
+        <div class="side-group">
+          <button class="side-btn" onclick="toggleMalay()">👁️ Melayu</button>
+          <button class="side-btn" onclick="toggleFont()">🔠 Tulisan Besar</button>
+          <button class="side-btn" onclick="toggleContrast()">🌙 Kontras</button>
+          <button class="side-btn" onclick="stopSpeech()">⏹ Stop Audio</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="topline">
+        <div class="top-title">
+          <h2 id="pageTitle">مَهَارَةُ الاسْتِمَاعِ</h2>
+          <p class="muted">Audio Arab, highlight perkataan, visual dan cabaran game hari jadi.</p>
+        </div>
+        <div class="quick-actions">
+          <button class="btn primary" onclick="navigate('listen')">🎧 Mula Dengar</button>
+          <button class="btn blue" onclick="navigate('voicepictures')">🖼️ Gambar Bersuara</button>
+          <button class="btn purple" onclick="navigate('games')">🎮 Cabaran</button>
+        </div>
+      </div>
+
+      <section class="section active" id="home">
+        <div class="welcome-grid">
+          <div class="panel hero-card">
+            <div class="hero-content">
+              <span class="hero-badge">🎉 Bahasa Arab • Dengar • Faham • Jawab</span>
+              <h1 class="hero-title-arabic">مَهَارَةُ الاسْتِمَاعِ</h1>
+              <h2 class="hero-title">Belajar Mendengar dengan <span>Ceria</span></h2>
+              <p class="hero-text">
+                Kit ini membantu murid mendengar ayat Bahasa Arab bertema hari jadi melalui audio, tulisan yang diserlahkan,
+                visual yang menarik dan cabaran permainan interaktif.
+              </p>
+
+              <div class="arabic-title">
+                <p class="arabic">عِيدُ مِيلَادٍ سَعِيدٌ</p>
+                <p class="malay">Selamat hari jadi</p>
+              </div>
+
+              <div class="controls" style="justify-content:flex-start;margin-top:22px">
+                <button class="btn primary" onclick="navigate('listen')">🎧 Mula Sesi Mendengar</button>
+                <button class="btn blue" onclick="playWelcome()">🔊 Dengar Tajuk</button>
+                <button class="btn green" onclick="navigate('voicepictures')">🖼️ Gambar Bersuara</button>
+                <button class="btn purple" onclick="navigate('games')">🎮 Main Cabaran</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel scene-card">
+            <div class="scene-top">
+              <div class="scene-tile"><div><div class="scene-emoji">🎁</div><b>Hadiah</b></div></div>
+              <div class="scene-tile"><div><div class="scene-emoji">🎈</div><b>Belon</b></div></div>
+              <div class="scene-tile"><div><div class="scene-emoji">🥳</div><b>Topi</b></div></div>
+              <div class="scene-tile"><div><div class="scene-emoji">📸</div><b>Gambar</b></div></div>
+            </div>
+            <div class="main-scene">
+              <div class="big">🎂</div>
+              <h2>Studio Hari Jadi</h2>
+              <p class="muted">Dengar audio Arab dan jawab aktiviti secara santai.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-strip">
+          <div class="feature-card"><div class="icon">🔊</div><h3>Audio Arab</h3><p class="muted">Murid mendengar ayat Arab dengan sebutan jelas.</p></div>
+          <div class="feature-card"><div class="icon">🟡</div><h3>Highlight Perkataan</h3><p class="muted">Perkataan diserlahkan semasa audio dimainkan.</p></div>
+          <div class="feature-card"><div class="icon">🖼️</div><h3>Gambar Bersuara</h3><p class="muted">Klik gambar untuk mendengar kosa kata atau ayat lengkap.</p></div>
+          <div class="feature-card"><div class="icon">🎮</div><h3>Cabaran Game</h3><p class="muted">Permainan ringkas untuk mengukuhkan kefahaman mendengar.</p></div>
+        </div>
+      </section>
+
+      <section class="section" id="listen">
+        <div class="listen-layout">
+          <div class="panel">
+            <h2>Senarai Audio</h2>
+            <p class="muted">Pilih ayat dan tekan butang dengar.</p>
+            <div class="lesson-list" id="lessonList"></div>
+          </div>
+
+          <div class="listen-stage">
+            <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center">
+              <div>
+                <h2 id="lessonTitle">Ayat 1 / 8</h2>
+                <p class="muted" id="listenStatus">Status: Sedia</p>
+              </div>
+              <div>
+                <button class="btn small" onclick="prevSentence()">⬅️</button>
+                <button class="btn small" onclick="nextSentence()">➡️</button>
+              </div>
+            </div>
+
+            <div class="visual-main" id="visualFocus">🎁</div>
+
+            <div class="sentence-box">
+              <div>
+                <div class="arabic" id="sentenceArea"></div>
+                <p class="malay" id="malayText"></p>
+              </div>
+            </div>
+
+            <div class="controls">
+              <button class="btn primary" onclick="playSentence()">▶ Dengar Ayat</button>
+              <button class="btn blue" onclick="playWordByWord()">🟡 Highlight</button>
+              <button class="btn" onclick="repeatSentence()">🔁 Ulang</button>
+              <button class="btn red" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+
+            <div class="progress-line"><div class="progress-fill" id="audioProgress"></div></div>
+
+            <div class="controls">
+              <button class="btn small" onclick="setRate(0.65)">🐢 Perlahan</button>
+              <button class="btn small" onclick="setRate(0.9)">🙂 Normal</button>
+              <button class="btn small" onclick="setRate(1.1)">⚡ Laju</button>
+              <span class="muted">Kelajuan: <b id="rateText">0.9</b>x</span>
+            </div>
+
+            <div class="question-card">
+              <h3>❓ Soalan Kefahaman</h3>
+              <p id="questionText" style="font-weight:900;margin-top:8px"></p>
+              <div class="choices" id="choices"></div>
+              <div class="feedback" id="feedback"></div>
+            </div>
+
+            <h3 style="margin-top:18px">Bantuan Maksud Ayat Ini</h3>
+            <div class="help-strip" id="currentVocab"></div>
+          </div>
+        </div>
+      </section>
+
+
+      <section class="section" id="voicepictures">
+        <div class="panel">
+          <h2>🖼️ Gambar Bersuara</h2>
+          <p class="muted">
+            Bahagian ini hanya menggunakan gambar. Klik pada gambar untuk mendengar audio Bahasa Arab.
+            Bahagian pertama ialah gambar kosa kata, manakala bahagian kedua ialah gambar yang menerangkan satu ayat lengkap.
+          </p>
+        </div>
+
+        <div class="voice-picture-layout">
+          <div class="voice-picture-box">
+            <h2>Bahagian 1: Gambar Kosa Kata</h2>
+            <p class="muted">Klik gambar untuk mendengar satu perkataan Arab.</p>
+            <div class="voice-picture-grid" id="vocabVoiceGrid"></div>
+            <div class="voice-note" id="vocabVoiceNote">Klik mana-mana gambar kosa kata.</div>
+          </div>
+
+          <div class="voice-picture-box">
+            <h2>Bahagian 2: Gambar Ayat Lengkap</h2>
+            <p class="muted">Klik gambar untuk mendengar satu ayat Arab yang lengkap.</p>
+            <div class="voice-picture-grid" id="sentenceVoiceGrid"></div>
+            <div class="voice-note" id="sentenceVoiceNote">Klik mana-mana gambar situasi.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="games">
+        <div class="panel">
+          <h2>Cabaran Mendengar</h2>
+          <p class="muted">Pilih cabaran. Semua aktiviti masih berfokus kepada kemahiran mendengar.</p>
+        </div>
+
+        <div class="game-grid" style="margin-top:18px">
+          <div class="game-tile" onclick="openGame('audio')"><div class="icon">🔊</div><h3>Dengar & Pilih</h3><p class="muted">Dengar ayat dan pilih maksud.</p></div>
+          <div class="game-tile" onclick="openGame('picture')"><div class="icon">🖼️</div><h3>Pilih Gambar</h3><p class="muted">Dengar perkataan dan pilih visual.</p></div>
+          <div class="game-tile" onclick="openGame('wordtap')"><div class="icon">👆</div><h3>Tap Perkataan</h3><p class="muted">Klik perkataan yang didengar.</p></div>
+          <div class="game-tile" onclick="openGame('memory')"><div class="icon">🧠</div><h3>Memory Match</h3><p class="muted">Padankan Arab dan maksud.</p></div>
+          <div class="game-tile" onclick="openGame('speed')"><div class="icon">⏱️</div><h3>Speed Listening</h3><p class="muted">Jawab cepat dalam 45 saat.</p></div>
+          <div class="game-tile" onclick="openGame('sequence')"><div class="icon">🎂</div><h3>Susun Cerita</h3><p class="muted">Susun perjalanan majlis hari jadi.</p></div>
+        </div>
+
+        <div class="game-area" id="game-audio">
+          <div class="game-board">
+            <div class="status"><span>🔊 Dengar & Pilih</span><span>Listening Challenge</span></div>
+            <div class="game-question">
+              <p>Dengar audio, kemudian pilih maksud yang betul.</p>
+              <button class="btn primary" onclick="playGameAudio()">▶ Dengar Soalan</button>
+              <p class="arabic" id="audioGameArabic"></p>
+            </div>
+            <div class="choices" id="audioGameChoices"></div>
+            <div class="feedback" id="audioGameFeedback"></div>
+            <div class="controls"><button class="btn" onclick="newAudioGame()">Soalan Baharu</button><button class="btn red" onclick="backToGameMenu()">Tutup Game</button></div>
+          </div>
+        </div>
+
+        <div class="game-area" id="game-picture">
+          <div class="game-board">
+            <div class="status"><span>🖼️ Pilih Gambar</span><span>Visual Listening</span></div>
+            <div class="game-question">
+              <p>Dengar perkataan dan pilih gambar yang betul.</p>
+              <button class="btn primary" onclick="playPictureWord()">▶ Dengar Perkataan</button>
+              <p id="pictureClue" class="muted"></p>
+            </div>
+            <div class="choices" id="pictureChoices"></div>
+            <div class="feedback" id="pictureFeedback"></div>
+            <div class="controls"><button class="btn" onclick="newPictureGame()">Soalan Baharu</button><button class="btn red" onclick="backToGameMenu()">Tutup Game</button></div>
+          </div>
+        </div>
+
+        <div class="game-area" id="game-wordtap">
+          <div class="game-board">
+            <div class="status"><span>👆 Tap Perkataan</span><span>Word Focus</span></div>
+            <div class="game-question">
+              <p>Dengar perkataan sasaran dan klik perkataan itu dalam ayat.</p>
+              <button class="btn primary" onclick="playTargetWord()">▶ Dengar Target</button>
+              <p class="arabic" id="tapSentence"></p>
+            </div>
+            <div class="feedback" id="tapFeedback"></div>
+            <div class="controls"><button class="btn" onclick="newTapGame()">Soalan Baharu</button><button class="btn red" onclick="backToGameMenu()">Tutup Game</button></div>
+          </div>
+        </div>
+
+        <div class="game-area" id="game-memory">
+          <div class="game-board">
+            <div class="status"><span>🧠 Memory Match</span><span id="memoryStatus">0/4 pasangan</span></div>
+            <div class="memory-grid" id="memoryGrid"></div>
+            <div class="controls"><button class="btn" onclick="startMemoryGame()">Mula Semula</button><button class="btn red" onclick="backToGameMenu()">Tutup Game</button></div>
+          </div>
+        </div>
+
+        <div class="game-area" id="game-speed">
+          <div class="game-board">
+            <div class="status"><span>⏱️ Speed Listening</span><span>Masa: <span id="speedTime">45</span>s</span></div>
+            <div class="game-question">
+              <p>Dengar perkataan dan pilih maksud dengan cepat.</p>
+              <button class="btn primary" onclick="startSpeedGame()">Mula Speed</button>
+              <button class="btn" onclick="playSpeedWord()">🔊 Ulang</button>
+              <p class="arabic" id="speedWordDisplay">اضغط ابدأ</p>
+            </div>
+            <div class="choices" id="speedChoices"></div>
+            <div class="feedback" id="speedFeedback"></div>
+            <div class="controls"><button class="btn red" onclick="backToGameMenu()">Tutup Game</button></div>
+          </div>
+        </div>
+
+        <div class="game-area" id="game-sequence">
+          <div class="game-board">
+            <div class="status"><span>🎂 Susun Cerita Hari Jadi</span><span>Dengar dan susun</span></div>
+            <div class="game-question">
+              <p>Dengar cerita, kemudian klik susunan peristiwa yang betul.</p>
+              <button class="btn primary" onclick="playSequenceAudio()">▶ Dengar Cerita</button>
+            </div>
+            <div class="sequence-list" id="sequenceList"></div>
+            <div class="feedback" id="sequenceFeedback"></div>
+            <div class="controls"><button class="btn" onclick="startSequenceGame()">Mula Semula</button><button class="btn green" onclick="checkSequence()">Semak</button><button class="btn red" onclick="backToGameMenu()">Tutup Game</button></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="footer">
+        <b class="arabic" style="font-size:1.6rem">مَهَارَةُ الاسْتِمَاعِ</b><br>
+        Kit Mendengar Bahasa Arab Tema Hari Jadi
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const sections = [
+      ['home','Utama','🏠'],
+      ['listen','Dengar','🎧'],
+      ['voicepictures','Gambar Bersuara','🖼️'],
+      ['games','Cabaran','🎮']
+    ];
+
+    const lessons = [
+      {ar:'هَذِهِ هَدِيَّةٌ جَمِيلَةٌ',ms:'Ini hadiah yang cantik',visual:'🎁',question:'ما هذه؟ (Ini apa?)',correct:'هَدِيَّةٌ (Hadiah)',choices:['كَعْكَةٌ (Kek)','هَدِيَّةٌ (Hadiah)','بَالُونٌ (Belon)'],vocab:[['هَذِهِ','ini'],['هَدِيَّةٌ','hadiah'],['جَمِيلَةٌ','cantik']]},
+      {ar:'هُنَاكَ كَعْكَةٌ كَبِيرَةٌ عَلَى الطَّاوِلَةِ',ms:'Ada kek besar di atas meja',visual:'🎂',question:'أين الكعكة؟ (Di mana kek?)',correct:'عَلَى الطَّاوِلَةِ (Di atas meja)',choices:['فِي الحَقِيبَةِ (Dalam beg)','عَلَى الطَّاوِلَةِ (Di atas meja)','خَارِجَ البَيْتِ (Di luar rumah)'],vocab:[['هُنَاكَ','ada / di sana'],['كَعْكَةٌ','kek'],['كَبِيرَةٌ','besar'],['عَلَى','di atas'],['الطَّاوِلَةِ','meja']]},
+      {ar:'عَلَى الكَعْكَةِ شُمُوعٌ كَثِيرَةٌ',ms:'Di atas kek ada banyak lilin',visual:'🕯️',question:'ماذا على الكعكة؟ (Apa di atas kek?)',correct:'شُمُوعٌ (Lilin-lilin)',choices:['شُمُوعٌ (Lilin-lilin)','كُتُبٌ (Buku-buku)','أَقْلَامٌ (Pen-pen)'],vocab:[['عَلَى','di atas'],['الكَعْكَةِ','kek'],['شُمُوعٌ','lilin-lilin'],['كَثِيرَةٌ','banyak']]},
+      {ar:'أَصْدِقَائِي يُغَنُّونَ أُغْنِيَةَ عِيدِ المِيلَادِ',ms:'Kawan-kawan saya menyanyikan lagu hari jadi',visual:'🎶',question:'من يغني الأغنية؟ (Siapa menyanyi lagu?)',correct:'أَصْدِقَائِي (Kawan-kawan saya)',choices:['أَصْدِقَائِي (Kawan-kawan saya)','المُعَلِّمُ (Guru)','السَّائِقُ (Pemandu)'],vocab:[['أَصْدِقَائِي','kawan-kawan saya'],['يُغَنُّونَ','mereka menyanyi'],['أُغْنِيَةَ','lagu'],['عِيدِ المِيلَادِ','hari jadi']]},
+      {ar:'أُمِّي تُحَضِّرُ العَصِيرَ لِلضُّيُوفِ',ms:'Ibu saya menyediakan jus untuk tetamu',visual:'🧃',question:'ماذا تحضر أمي؟ (Apa ibu sediakan?)',correct:'العَصِيرَ (Jus)',choices:['العَصِيرَ (Jus)','الحَقِيبَةَ (Beg)','الكُرْسِيَّ (Kerusi)'],vocab:[['أُمِّي','ibu saya'],['تُحَضِّرُ','menyediakan'],['العَصِيرَ','jus'],['لِلضُّيُوفِ','untuk tetamu']]},
+      {ar:'الأَطْفَالُ يَلْبَسُونَ قُبَّعَاتٍ مُلَوَّنَةً',ms:'Kanak-kanak memakai topi berwarna-warni',visual:'🥳',question:'ماذا يلبس الأطفال؟ (Apa yang kanak-kanak pakai?)',correct:'قُبَّعَاتٍ (Topi)',choices:['قُبَّعَاتٍ (Topi)','أَحْذِيَةً (Kasut)','نَظَّارَاتٍ (Cermin mata)'],vocab:[['الأَطْفَالُ','kanak-kanak'],['يَلْبَسُونَ','memakai'],['قُبَّعَاتٍ','topi'],['مُلَوَّنَةً','berwarna-warni']]},
+      {ar:'يَقْطَعُ أَخِي الكَعْكَةَ بِسِكِّينٍ صَغِيرَةٍ',ms:'Abang/adik lelaki saya memotong kek dengan pisau kecil',visual:'🍰',question:'ماذا يقطع أخي؟ (Apa yang abang/adik lelaki saya potong?)',correct:'الكَعْكَةَ (Kek)',choices:['الكَعْكَةَ (Kek)','البَالُونَ (Belon)','الهَدِيَّةَ (Hadiah)'],vocab:[['يَقْطَعُ','memotong'],['أَخِي','abang/adik lelaki saya'],['الكَعْكَةَ','kek'],['بِسِكِّينٍ','dengan pisau'],['صَغِيرَةٍ','kecil']]},
+      {ar:'نَحْنُ نَلْتَقِطُ الصُّوَرَ التِّذْكَارِيَّةَ',ms:'Kami mengambil gambar kenangan',visual:'📸',question:'ماذا نلتقط؟ (Apa yang kami ambil?)',correct:'الصُّوَرَ (Gambar)',choices:['الصُّوَرَ (Gambar)','الأَحْجَارَ (Batu)','الأَحْذِيَةَ (Kasut)'],vocab:[['نَحْنُ','kami / kita'],['نَلْتَقِطُ','mengambil'],['الصُّوَرَ','gambar-gambar'],['التِّذْكَارِيَّةَ','kenangan']]}
+    ];
+
+    const imageWords = [
+      {ar:'هَدِيَّةٌ',ms:'hadiah',visual:'🎁'},
+      {ar:'كَعْكَةٌ',ms:'kek',visual:'🎂'},
+      {ar:'شُمُوعٌ',ms:'lilin',visual:'🕯️'},
+      {ar:'أُغْنِيَةٌ',ms:'lagu',visual:'🎶'},
+      {ar:'عَصِيرٌ',ms:'jus',visual:'🧃'},
+      {ar:'قُبَّعَاتٌ',ms:'topi',visual:'🥳'},
+      {ar:'صُوَرٌ',ms:'gambar',visual:'📸'},
+      {ar:'ضُيُوفٌ',ms:'tetamu',visual:'👨‍👩‍👧'}
+    ];
+
+    const sequenceStory = [
+      {ar:'يَأْتِي الضُّيُوفُ إِلَى البَيْتِ', ms:'Tetamu datang ke rumah', order:1},
+      {ar:'يُقَدِّمُ الأَصْدِقَاءُ الهَدَايَا', ms:'Kawan-kawan memberikan hadiah', order:2},
+      {ar:'نُغَنِّي أُغْنِيَةَ عِيدِ المِيلَادِ', ms:'Kami menyanyikan lagu hari jadi', order:3},
+      {ar:'نَقْطَعُ الكَعْكَةَ وَنَأْكُلُهَا', ms:'Kami memotong dan makan kek', order:4}
+    ];
+
+    let current = 0;
+    let selectedRate = 0.9;
+    let wordTimer = null;
+    let progressTimer = null;
+    let audioCtx = null;
+    let musicGain = null;
+    let musicOn = false;
+    let musicTimer = null;
+    let audioGameCurrent = null, pictureCurrent = null, tapCurrent = null, tapTarget = null;
+    let memoryCards = [], memoryOpen = [], memoryMatched = 0;
+    let speedCurrent = null, speedTimer = null, speedTime = 45;
+    let sequenceSelected = [];
+
+
+    const vocabVoicePictures = [
+      {pic:'🎁', audio:'هَدِيَّةٌ', note:'Audio kosa kata: hadiah'},
+      {pic:'🎂', audio:'كَعْكَةٌ', note:'Audio kosa kata: kek'},
+      {pic:'🎈', audio:'بَالُونٌ', note:'Audio kosa kata: belon'},
+      {pic:'🕯️', audio:'شَمْعَةٌ', note:'Audio kosa kata: lilin'},
+      {pic:'🧃', audio:'عَصِيرٌ', note:'Audio kosa kata: jus'},
+      {pic:'🥳', audio:'قُبَّعَةٌ', note:'Audio kosa kata: topi'},
+      {pic:'📸', audio:'صُورَةٌ', note:'Audio kosa kata: gambar'},
+      {pic:'👨‍👩‍👧', audio:'ضُيُوفٌ', note:'Audio kosa kata: tetamu'}
+    ];
+
+    const sentenceVoicePictures = [
+      {
+        pic:`<div class="sentence-scene">
+              <div>
+                <div class="scene-line"><span class="scene-big">🎁</span><span class="scene-mid">✨</span><span class="scene-small">😊</span></div>
+              </div>
+            </div>`,
+        audio:'هَذِهِ هَدِيَّةٌ جَمِيلَةٌ',
+        note:'Audio ayat lengkap: Ini hadiah yang cantik'
+      },
+      {
+        pic:`<div class="sentence-scene">
+              <div>
+                <div class="scene-line"><span class="scene-big">🎂</span><span class="scene-mid">🍽️</span></div>
+                <div class="scene-table"></div>
+              </div>
+            </div>`,
+        audio:'هُنَاكَ كَعْكَةٌ كَبِيرَةٌ عَلَى الطَّاوِلَةِ',
+        note:'Audio ayat lengkap: Ada kek besar di atas meja'
+      },
+      {
+        pic:`<div class="sentence-scene">
+              <div>
+                <div class="scene-line"><span class="scene-big">🎂</span><span class="scene-mid">🕯️</span><span class="scene-mid">🕯️</span><span class="scene-mid">🕯️</span></div>
+                <div class="scene-table"></div>
+              </div>
+            </div>`,
+        audio:'عَلَى الكَعْكَةِ شُمُوعٌ كَثِيرَةٌ',
+        note:'Audio ayat lengkap: Di atas kek ada banyak lilin'
+      },
+      {
+        pic:`<div class="sentence-scene party">
+              <div>
+                <div class="scene-line"><span class="scene-mid">🧑‍🤝‍🧑</span><span class="scene-big">🎶</span><span class="scene-mid">🎂</span></div>
+                <div class="scene-line"><span class="scene-small">🎈</span><span class="scene-small">🎉</span><span class="scene-small">🎈</span></div>
+              </div>
+            </div>`,
+        audio:'أَصْدِقَائِي يُغَنُّونَ أُغْنِيَةَ عِيدِ المِيلَادِ',
+        note:'Audio ayat lengkap: Kawan-kawan menyanyi lagu hari jadi'
+      },
+      {
+        pic:`<div class="sentence-scene">
+              <div>
+                <div class="scene-line"><span class="scene-mid">👩</span><span class="scene-big">🧃</span><span class="scene-mid">👨‍👩‍👧</span></div>
+                <div class="scene-line"><span class="scene-small">🥤</span><span class="scene-small">🥤</span><span class="scene-small">🥤</span></div>
+              </div>
+            </div>`,
+        audio:'أُمِّي تُحَضِّرُ العَصِيرَ لِلضُّيُوفِ',
+        note:'Audio ayat lengkap: Ibu menyediakan jus untuk tetamu'
+      },
+      {
+        pic:`<div class="sentence-scene photo">
+              <div>
+                <div class="scene-line"><span class="scene-mid">🧑‍🤝‍🧑</span><span class="scene-big">📸</span><span class="scene-mid">🎂</span></div>
+                <div class="scene-line"><span class="scene-small">🖼️</span><span class="scene-small">✨</span><span class="scene-small">🎉</span></div>
+              </div>
+            </div>`,
+        audio:'نَحْنُ نَلْتَقِطُ الصُّوَرَ التِّذْكَارِيَّةَ',
+        note:'Audio ayat lengkap: Kami mengambil gambar kenangan'
+      }
+    ];
+
+    function renderVoicePictures(){
+      const vocabGrid = document.getElementById('vocabVoiceGrid');
+      const sentGrid = document.getElementById('sentenceVoiceGrid');
+
+      if(vocabGrid){
+        vocabGrid.innerHTML = vocabVoicePictures.map((item,index)=>`
+          <button class="voice-img-card" onclick="playVoicePicture('vocab',${index})" aria-label="Gambar kosa kata">
+            <span class="pic">${item.pic}</span>
+          </button>
+        `).join('');
+      }
+
+      if(sentGrid){
+        sentGrid.innerHTML = sentenceVoicePictures.map((item,index)=>`
+          <button class="voice-img-card sentence-card" onclick="playVoicePicture('sentence',${index})" aria-label="Gambar ayat lengkap">
+            ${item.pic}
+          </button>
+        `).join('');
+      }
+    }
+
+    function playVoicePicture(type,index){
+      const item = type === 'vocab' ? vocabVoicePictures[index] : sentenceVoicePictures[index];
+      stopSpeech();
+      speakText(item.audio);
+
+      if(type === 'vocab'){
+        document.getElementById('vocabVoiceNote').textContent = item.note;
+      }else{
+        document.getElementById('sentenceVoiceNote').textContent = item.note;
+      }
+    }
+
+
+    function init(){
+      renderNav();
+      renderLessonList();
+      renderLesson();
+      renderVoicePictures();
+      newAudioGame();
+      newPictureGame();
+      newTapGame();
+      startMemoryGame();
+      startSequenceGame();
+    }
+
+    function renderNav(){
+      document.getElementById('sideNav').innerHTML = sections.map(s=>`<button id="nav-${s[0]}" class="side-btn" onclick="navigate('${s[0]}')">${s[2]} ${s[1]}</button>`).join('');
+      setActiveNav('home');
+    }
+
+    function navigate(id){
+      document.querySelectorAll('.section').forEach(sec=>sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      setActiveNav(id);
+      const titleMap = {home:'مَهَارَةُ الاسْتِمَاعِ',listen:'Sesi Mendengar',voicepictures:'Gambar Bersuara',games:'Cabaran Mendengar'};
+      document.getElementById('pageTitle').textContent = titleMap[id] || 'مَهَارَةُ الاسْتِمَاعِ';
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    function setActiveNav(id){
+      document.querySelectorAll('.side-btn').forEach(b=>b.classList.remove('active'));
+      const btn = document.getElementById('nav-'+id);
+      if(btn) btn.classList.add('active');
+    }
+
+    function showToast(msg){
+      const t=document.getElementById('toast');
+      t.textContent=msg;
+      t.classList.add('show');
+      setTimeout(()=>t.classList.remove('show'),1300);
+    }
+
+    function showPopup(title,msg,extra=''){
+      document.getElementById('popTitle').textContent=title;
+      document.getElementById('popMsg').textContent=msg;
+      document.getElementById('popExtra').innerHTML=extra;
+      document.getElementById('overlay').style.display='block';
+      document.getElementById('popup').style.display='block';
+    }
+
+    function closePopup(){
+      document.getElementById('overlay').style.display='none';
+      document.getElementById('popup').style.display='none';
+    }
+
+    function splitArabic(text){return text.trim().split(/\s+/)}
+    function escapeHtml(str){return String(str).replace(/'/g,"&#39;").replace(/"/g,'&quot;')}
+
+    function renderLessonList(){
+      document.getElementById('lessonList').innerHTML = lessons.map((l,i)=>`
+        <button class="lesson-tab ${i===current?'active':''}" onclick="selectLesson(${i})">
+          <span class="emoji">${l.visual}</span>
+          <span><b>Ayat ${i+1}</b><small>${l.ms}</small></span>
+        </button>`).join('');
+    }
+
+    function selectLesson(i){
+      current=i;
+      renderLessonList();
+      renderLesson();
+      renderVoicePictures();
+    }
+
+    function renderLesson(){
+      stopSpeech();
+      const lesson = lessons[current];
+      document.getElementById('lessonTitle').textContent = `Ayat ${current+1} / ${lessons.length}`;
+      document.getElementById('visualFocus').textContent = lesson.visual;
+      document.getElementById('malayText').textContent = `(${lesson.ms})`;
+      document.getElementById('questionText').textContent = lesson.question;
+
+      document.getElementById('sentenceArea').innerHTML = splitArabic(lesson.ar).map((w,i)=>`<span class="word" id="word-${i}" onclick="speakSingleWord('${escapeHtml(w)}',${i})">${w}</span>`).join(' ');
+      document.getElementById('currentVocab').innerHTML = lesson.vocab.map(v=>`
+        <div class="help-chip">
+          <div><b class="arabic" style="font-size:1.45rem">${v[0]}</b><br><span class="malay">${v[1]}</span></div>
+          <button class="btn small" onclick="speakText('${escapeHtml(v[0])}')">🔊</button>
+        </div>`).join('');
+      document.getElementById('choices').innerHTML = lesson.choices.map(c=>`<button class="choice" onclick="checkAnswer(this,'${escapeHtml(c)}')">${c}</button>`).join('');
+      document.getElementById('feedback').className='feedback';
+      document.getElementById('feedback').textContent='';
+      document.getElementById('audioProgress').style.width='0%';
+      document.getElementById('listenStatus').textContent='Status: Sedia';
+    }
+
+    function getArabicVoice(){
+      const voices=speechSynthesis.getVoices();
+      return voices.find(v=>v.lang&&v.lang.toLowerCase().startsWith('ar'))||null;
+    }
+
+    function speakText(text,onEnd){
+      if(!('speechSynthesis' in window)){
+        alert('Browser ini tidak menyokong Text-to-Speech.');
+        return;
+      }
+      const u=new SpeechSynthesisUtterance(text);
+      u.lang='ar-SA';
+      u.rate=selectedRate;
+      u.pitch=1;
+      const arVoice=getArabicVoice();
+      if(arVoice) u.voice=arVoice;
+      u.onend=()=>{if(onEnd)onEnd()};
+      u.onerror=()=>{if(onEnd)onEnd()};
+      speechSynthesis.speak(u);
+    }
+
+    function playWelcome(){
+      speakText('مَهَارَةُ الاسْتِمَاعِ');
+      setTimeout(()=>speakText('عِيدُ مِيلَادٍ سَعِيدٌ'),900);
+    }
+
+    function highlightWord(i){
+      document.querySelectorAll('.word').forEach(w=>w.classList.remove('active'));
+      const el=document.getElementById('word-'+i);
+      if(el)el.classList.add('active');
+    }
+
+    function clearHighlight(){
+      document.querySelectorAll('.word').forEach(w=>w.classList.remove('active','correct-tap','wrong-tap'));
+    }
+
+    function stopSpeech(){
+      if('speechSynthesis' in window)speechSynthesis.cancel();
+      clearTimeout(wordTimer);
+      clearInterval(progressTimer);
+      clearHighlight();
+    }
+
+    function playSentence(){
+      stopSpeech();
+      const lesson=lessons[current];
+      document.getElementById('listenStatus').textContent='Status: Audio ayat sedang dimainkan...';
+      startProgress(2600+splitArabic(lesson.ar).length*450);
+      speakText(lesson.ar,()=>{
+        clearHighlight();
+        document.getElementById('listenStatus').textContent='Status: Selesai mendengar ayat.';
+        document.getElementById('audioProgress').style.width='100%';
+      });
+    }
+
+    function playWordByWord(){
+      stopSpeech();
+      const words=splitArabic(lessons[current].ar);
+      let i=0;
+      document.getElementById('listenStatus').textContent='Status: Dengar perkataan demi perkataan...';
+      startProgress(words.length*900);
+      function next(){
+        if(i>=words.length){
+          clearHighlight();
+          document.getElementById('listenStatus').textContent='Status: Selesai word highlight.';
+          document.getElementById('audioProgress').style.width='100%';
+          return;
+        }
+        highlightWord(i);
+        speakText(words[i],()=>{
+          i++;
+          wordTimer=setTimeout(next,140);
+        });
+      }
+      next();
+    }
+
+    function repeatSentence(){
+      playWordByWord();
+    }
+
+    function speakSingleWord(word,i){
+      stopSpeech();
+      highlightWord(i);
+      speakText(word,()=>setTimeout(clearHighlight,300));
+    }
+
+    function startProgress(duration){
+      clearInterval(progressTimer);
+      let start=Date.now();
+      document.getElementById('audioProgress').style.width='0%';
+      progressTimer=setInterval(()=>{
+        let pct=Math.min(100,((Date.now()-start)/duration)*100);
+        document.getElementById('audioProgress').style.width=pct+'%';
+        if(pct>=100)clearInterval(progressTimer);
+      },80);
+    }
+
+    function checkAnswer(btn,choice){
+      const lesson=lessons[current], fb=document.getElementById('feedback'), buttons=document.querySelectorAll('#choices .choice');
+      buttons.forEach(b=>b.disabled=true);
+      if(choice===lesson.correct){
+        btn.classList.add('correct');
+        fb.className='feedback show ok';
+        fb.textContent='✔ أحسنت! Betul. Kamu berjaya memahami audio.';
+      }else{
+        btn.classList.add('wrong');
+        fb.className='feedback show no';
+        fb.textContent='❌ Cuba lagi. Dengar semula audio dan perhatikan visual.';
+        setTimeout(()=>{
+          buttons.forEach(b=>b.disabled=false);
+          btn.classList.remove('wrong');
+        },900);
+      }
+    }
+
+    function nextSentence(){
+      current=(current+1)%lessons.length;
+      renderLessonList();
+      renderLesson();
+      renderVoicePictures();
+    }
+
+    function prevSentence(){
+      current=(current-1+lessons.length)%lessons.length;
+      renderLessonList();
+      renderLesson();
+      renderVoicePictures();
+    }
+
+    function setRate(rate){
+      selectedRate=rate;
+      document.getElementById('rateText').textContent=rate;
+    }
+
+    function openGame(name){
+      document.querySelectorAll('.game-area').forEach(g=>g.classList.remove('active'));
+      document.getElementById('game-'+name).classList.add('active');
+      if(name==='audio')newAudioGame();
+      if(name==='picture')newPictureGame();
+      if(name==='wordtap')newTapGame();
+      if(name==='memory')startMemoryGame();
+      if(name==='sequence')startSequenceGame();
+      setTimeout(()=>document.getElementById('game-'+name).scrollIntoView({behavior:'smooth',block:'start'}),100);
+    }
+
+    function backToGameMenu(){
+      document.querySelectorAll('.game-area').forEach(g=>g.classList.remove('active'));
+    }
+
+    function shuffle(arr){return[...arr].sort(()=>Math.random()-0.5)}
+    function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
+
+    function newAudioGame(){
+      audioGameCurrent=pick(lessons);
+      document.getElementById('audioGameArabic').textContent=audioGameCurrent.ar;
+      const options=shuffle([audioGameCurrent.ms,...shuffle(lessons.filter(l=>l!==audioGameCurrent)).slice(0,2).map(l=>l.ms)]);
+      document.getElementById('audioGameChoices').innerHTML=options.map(o=>`<button class="choice" onclick="checkAudioGame(this,'${escapeHtml(o)}')">${o}</button>`).join('');
+      document.getElementById('audioGameFeedback').className='feedback';
+    }
+
+    function playGameAudio(){
+      if(audioGameCurrent)speakText(audioGameCurrent.ar);
+    }
+
+    function checkAudioGame(btn,answer){
+      const fb=document.getElementById('audioGameFeedback');
+      if(answer===audioGameCurrent.ms){
+        btn.classList.add('correct');
+        fb.className='feedback show ok';
+        fb.textContent='✔ Betul! Kamu memahami audio.';
+        setTimeout(newAudioGame,900);
+      }else{
+        btn.classList.add('wrong');
+        fb.className='feedback show no';
+        fb.textContent='❌ Salah. Dengar semula.';
+      }
+    }
+
+    function newPictureGame(){
+      pictureCurrent=pick(imageWords);
+      document.getElementById('pictureClue').textContent='Perkataan diperdengarkan. Pilih gambar yang tepat.';
+      const options=shuffle([pictureCurrent,...shuffle(imageWords.filter(x=>x!==pictureCurrent)).slice(0,3)]);
+      document.getElementById('pictureChoices').innerHTML=options.map(o=>`<button class="choice" onclick="checkPictureGame(this,'${escapeHtml(o.ar)}')"><span style="font-size:2.5rem">${o.visual}</span><br>${o.ms}</button>`).join('');
+      document.getElementById('pictureFeedback').className='feedback';
+    }
+
+    function playPictureWord(){
+      if(pictureCurrent)speakText(pictureCurrent.ar);
+    }
+
+    function checkPictureGame(btn,ar){
+      const fb=document.getElementById('pictureFeedback');
+      if(ar===pictureCurrent.ar){
+        btn.classList.add('correct');
+        fb.className='feedback show ok';
+        fb.textContent='✔ Gambar betul.';
+        setTimeout(newPictureGame,900);
+      }else{
+        btn.classList.add('wrong');
+        fb.className='feedback show no';
+        fb.textContent='❌ Cuba lagi.';
+      }
+    }
+
+    function newTapGame(){
+      tapCurrent=pick(lessons);
+      tapTarget=pick(tapCurrent.vocab)[0];
+      document.getElementById('tapSentence').innerHTML=splitArabic(tapCurrent.ar).map(w=>`<span class="word" onclick="checkTapWord(this,'${escapeHtml(w)}')">${w}</span>`).join(' ');
+      document.getElementById('tapFeedback').className='feedback';
+    }
+
+    function playTargetWord(){
+      if(tapTarget)speakText(tapTarget);
+    }
+
+    function normalizeArabic(s){
+      return s.replace(/[ًٌٍَُِّْٰـ]/g,'').replace(/[^\u0600-\u06FF]/g,'');
+    }
+
+    function checkTapWord(el,w){
+      const fb=document.getElementById('tapFeedback');
+      if(normalizeArabic(w)===normalizeArabic(tapTarget)){
+        el.classList.add('correct-tap');
+        fb.className='feedback show ok';
+        fb.textContent='✔ Betul! Kamu jumpa perkataan yang didengar.';
+        setTimeout(newTapGame,1000);
+      }else{
+        el.classList.add('wrong-tap');
+        fb.className='feedback show no';
+        fb.textContent='❌ Itu bukan perkataan yang didengar.';
+      }
+    }
+
+    function startMemoryGame(){
+      memoryMatched=0;
+      memoryOpen=[];
+      const pairs=shuffle(imageWords).slice(0,4);
+      memoryCards=shuffle([...pairs.map((p,i)=>({id:i,type:'ar',text:p.ar})),...pairs.map((p,i)=>({id:i,type:'ms',text:p.ms}))]);
+      renderMemory();
+    }
+
+    function renderMemory(){
+      document.getElementById('memoryStatus').textContent=`${memoryMatched}/4 pasangan`;
+      document.getElementById('memoryGrid').innerHTML=memoryCards.map((c,i)=>`<button class="mem-card ${c.open?'open':''} ${c.matched?'matched':''}" onclick="flipMemory(${i})">${c.open||c.matched?c.text:'🎁'}</button>`).join('');
+    }
+
+    function flipMemory(i){
+      const card=memoryCards[i];
+      if(card.matched||card.open||memoryOpen.length>=2)return;
+      card.open=true;
+      memoryOpen.push(i);
+      if(card.type==='ar')speakText(card.text);
+      renderMemory();
+      if(memoryOpen.length===2){
+        const a=memoryCards[memoryOpen[0]],b=memoryCards[memoryOpen[1]];
+        if(a.id===b.id&&a.type!==b.type){
+          a.matched=b.matched=true;
+          memoryMatched++;
+          if(memoryMatched===4)showPopup('Memory Complete!','Semua pasangan berjaya dipadankan.');
+          memoryOpen=[];
+          renderMemory();
+        }else{
+          setTimeout(()=>{
+            a.open=false;
+            b.open=false;
+            memoryOpen=[];
+            renderMemory();
+          },800);
+        }
+      }
+    }
+
+    function startSpeedGame(){
+      clearInterval(speedTimer);
+      speedTime=45;
+      document.getElementById('speedTime').textContent=speedTime;
+      newSpeedQuestion();
+      speedTimer=setInterval(()=>{
+        speedTime--;
+        document.getElementById('speedTime').textContent=speedTime;
+        if(speedTime<=0){
+          clearInterval(speedTimer);
+          document.getElementById('speedFeedback').className='feedback show ok';
+          document.getElementById('speedFeedback').textContent='Masa tamat! Cuba lagi untuk latihan mendengar.';
+        }
+      },1000);
+    }
+
+    function newSpeedQuestion(){
+      speedCurrent=pick(imageWords);
+      document.getElementById('speedWordDisplay').textContent=speedCurrent.ar;
+      const options=shuffle([speedCurrent,...shuffle(imageWords.filter(x=>x!==speedCurrent)).slice(0,2)]);
+      document.getElementById('speedChoices').innerHTML=options.map(o=>`<button class="choice" onclick="checkSpeedAnswer(this,'${escapeHtml(o.ms)}')">${o.ms}</button>`).join('');
+      document.getElementById('speedFeedback').className='feedback';
+      playSpeedWord();
+    }
+
+    function playSpeedWord(){
+      if(speedCurrent)speakText(speedCurrent.ar);
+    }
+
+    function checkSpeedAnswer(btn,ms){
+      if(speedTime<=0)return;
+      const fb=document.getElementById('speedFeedback');
+      if(ms===speedCurrent.ms){
+        btn.classList.add('correct');
+        setTimeout(newSpeedQuestion,450);
+      }else{
+        btn.classList.add('wrong');
+        fb.className='feedback show no';
+        fb.textContent='Salah. Dengar lagi.';
+      }
+    }
+
+    function startSequenceGame(){
+      sequenceSelected=[];
+      document.getElementById('sequenceList').innerHTML=shuffle(sequenceStory).map(s=>`<div class="seq-item" data-order="${s.order}" onclick="selectSequence(this)"><span class="arabic" style="font-size:1.7rem">${s.ar}</span><br><span class="malay">${s.ms}</span></div>`).join('');
+      document.getElementById('sequenceFeedback').className='feedback';
+    }
+
+    function playSequenceAudio(){
+      let i=0;
+      function next(){
+        if(i>=sequenceStory.length)return;
+        speakText(sequenceStory[i].ar,()=>{
+          i++;
+          setTimeout(next,300);
+        });
+      }
+      next();
+    }
+
+    function selectSequence(el){
+      if(el.classList.contains('done')||el.classList.contains('selected'))return;
+      el.classList.add('selected');
+      sequenceSelected.push(el);
+      el.innerHTML=`<b>${sequenceSelected.length}. </b>`+el.innerHTML;
+    }
+
+    function checkSequence(){
+      const fb=document.getElementById('sequenceFeedback');
+      if(sequenceSelected.length!==sequenceStory.length){
+        fb.className='feedback show no';
+        fb.textContent='Pilih semua ayat dahulu.';
+        return;
+      }
+      const ok=sequenceSelected.every((el,i)=>Number(el.dataset.order)===i+1);
+      if(ok){
+        sequenceSelected.forEach(el=>{el.classList.remove('selected');el.classList.add('done')});
+        fb.className='feedback show ok';
+        fb.textContent='✔ Susunan cerita betul!';
+      }else{
+        fb.className='feedback show no';
+        fb.textContent='❌ Susunan belum tepat. Cuba dengar cerita semula.';
+        setTimeout(startSequenceGame,1000);
+      }
+    }
+
+    function toggleMalay(){document.body.classList.toggle('hide-malay')}
+    function toggleFont(){document.body.classList.toggle('big-font')}
+    function toggleContrast(){document.body.classList.toggle('high-contrast')}
+
+    function setupMusic(){
+      if(audioCtx)return;
+      audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+      musicGain=audioCtx.createGain();
+      musicGain.gain.value=Number(document.getElementById('musicVol').value||0.02);
+      musicGain.connect(audioCtx.destination);
+    }
+
+    function playSoftTone(freq,start,dur){
+      const osc=audioCtx.createOscillator(),gain=audioCtx.createGain();
+      osc.type='sine';
+      osc.frequency.value=freq;
+      gain.gain.setValueAtTime(0,start);
+      gain.gain.linearRampToValueAtTime(0.7,start+0.08);
+      gain.gain.exponentialRampToValueAtTime(0.001,start+dur);
+      osc.connect(gain);
+      gain.connect(musicGain);
+      osc.start(start);
+      osc.stop(start+dur+0.05);
+    }
+
+    function scheduleSoftMusic(){
+      if(!musicOn||!audioCtx)return;
+      const now=audioCtx.currentTime,notes=[261.63,329.63,392.00,523.25,440.00,392.00,329.63,293.66];
+      for(let i=0;i<8;i++){
+        playSoftTone(notes[i],now+i*.55,.75);
+        playSoftTone(notes[(i+2)%notes.length]/2,now+i*.55,1.0);
+      }
+      musicTimer=setTimeout(scheduleSoftMusic,4300);
+    }
+
+    function toggleMusic(){
+      setupMusic();
+      if(audioCtx.state==='suspended')audioCtx.resume();
+      musicOn=!musicOn;
+      const btn=document.getElementById('musicBtn'),eq=document.getElementById('eq');
+      if(musicOn){
+        btn.textContent='Matikan Muzik';
+        eq.classList.add('playing');
+        scheduleSoftMusic();
+        showToast('Muzik soft dihidupkan');
+      }else{
+        btn.textContent='Hidupkan Muzik';
+        eq.classList.remove('playing');
+        clearTimeout(musicTimer);
+        showToast('Muzik dimatikan');
+      }
+    }
+
+    function setMusicVolume(v){
+      if(musicGain)musicGain.gain.value=Number(v);
+    }
+
+    window.speechSynthesis.onvoiceschanged=()=>getArabicVoice();
+    window.addEventListener('load',init);
+  </script>
+</body>
+</html>
